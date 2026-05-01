@@ -1,22 +1,21 @@
 # pakistan-flood-mortality
-Summary: This repository contains the data pipeline and analysis code for a difference-in-differences study estimating the causal effect of the 2010 Pakistan monsoon floods on neonatal mortality (death within 28 days), infant mortality (death within the first year), and child mortality (death between ages one and five). Flood exposure is measured as a continuous district-level inundation fraction derived from the Global Flood Database (DFO event 3696, July 27 – November 15, 2010) using Google Earth Engine. Birth outcome data come from the Pakistan Demographic and Health Survey 2012-13 (DHS). The identification strategy compares mortality trajectories across districts with varying levels of flood inundation before and after August 2010, controlling for district fixed effects and quarter-year fixed effects. The analysis covers 64 districts across Punjab, Khyber Pakhtunkhwa, and Balochistan.
 
-The repository is organized into three folders: 1) Data, 2) Analysis, and 3) Result:
+This repository contains the data pipeline and analysis code for a difference-in-differences study estimating the causal effect of the 2010 Pakistan monsoon floods on neonatal mortality (death within 28 days), infant mortality (death within the first year), and child mortality (death between ages one and five). Flood exposure is measured as a continuous district-level inundation fraction derived from the Global Flood Database (DFO event 3696, July 27 – November 15, 2010) using Google Earth Engine. Birth outcome data come from the Pakistan Demographic and Health Survey 2012-13 (DHS). The identification strategy compares mortality trajectories across districts with varying levels of flood inundation before and after August 2010, controlling for district fixed effects and quarter-year fixed effects. The analysis covers 64 districts across Punjab, Khyber Pakhtunkhwa, and Balochistan.
 
-1) Data:
-The Data folder contains four files.
+## Repository Structure
 
-a. PKBR61FL.DTA.zip is the Pakistan DHS 2012-13 Birth Records microdata file in Stata format, containing birth histories for all children born to surveyed women including birth dates, survival status, age at death, and maternal and household characteristics — access requires registration at dhsprogram.com.
-b. PKBR61FL.DO.zip is the accompanying Stata do-file.   
-c. Pakistan_DHS_2012-13_District+Codes+with+Sample+Points+Final.xls is a district-level crosswalk mapping numeric DHS district codes to district names, sourced from the DHS user forum as no official documentation is publicly available. 
-d. pakistan_district_flood_2010.csv contains district-level flood exposure measures extracted from the Global Flood Database for the 2010 Pakistan monsoon flood event.
+### Data
+- **PKBR61FL.DTA.zip** — Pakistan DHS 2012-13 Birth Records microdata in Stata format, containing birth histories including birth dates, survival status, age at death, and maternal and household characteristics. Access requires registration at dhsprogram.com.
+- **PKBR61FL.DO.zip** — Accompanying Stata do-file.
+- **Pakistan_DHS_2012-13_District_Codes_with_Sample_Points_Final.xls** — District-level crosswalk mapping numeric DHS district codes to district names, sourced from the DHS user forum as no official documentation is publicly available.
+- **pakistan_district_flood_2010.csv** — District-level flood exposure measures extracted from the Global Flood Database for the 2010 Pakistan monsoon flood event.
 
-2) Analysis:
-   The Analysis folder contains three files.
+### Analysis
+- **Data preparation for flood extent.dart** — Documents the process of identifying and verifying the 2010 Pakistan monsoon flood event (DFO-3696) in Google Earth Engine, including JavaScript code to visualize flood extent and duration.
+- **Exporting district flood data to CSV.py** — Extracts district-level flood exposure measures (flood fraction and mean duration) using the Google Earth Engine Python API and GAUL district boundaries, and exports results to CSV for merging with DHS data.
+- **Merging_Flood_DHS_data.ipynb** — Main analysis notebook: merges flood and DHS data, constructs mortality outcomes and treatment variables, runs DiD regressions, and generates all figures.
 
-a. Data preparation for flood extent.dart documents the process of identifying and verifying the 2010 Pakistan monsoon flood event (DFO-3696) in Google Earth Engine, including the JavaScript code used to visualize flood extent and duration.
-b. Exporting district flood data to CSV.py extracts district-level flood exposure measures — flood fraction and mean duration — using the Google Earth Engine Python API and GAUL district boundaries, and exports the results to CSV for merging with DHS data.
-c. Merging_Flood_DHS_data.py is the main analysis notebook, which merges flood and DHS data, constructs mortality outcomes and treatment variables, runs the DiD regressions, and generates all figures. 
-
-3) Result:
-The Result folder contains the three output figures generated by the analysis: figure1_neonatal.png, figure2_infant.png, and figure3_child.png, each showing LOWESS-smoothed mortality trends for heavily and lightly flooded districts from 2005 to 2012 with 95% bootstrap confidence intervals.
+### Result
+- **figure1_neonatal.png** — LOWESS-smoothed neonatal mortality trends for heavily and lightly flooded districts, 2005–2012, with 95% bootstrap confidence intervals.
+- **figure2_infant.png** — LOWESS-smoothed infant mortality trends for heavily and lightly flooded districts, 2005–2012, with 95% bootstrap confidence intervals.
+- **figure3_child.png** — LOWESS-smoothed child mortality trends for heavily and lightly flooded districts, 2005–2012, with 95% bootstrap confidence intervals.
